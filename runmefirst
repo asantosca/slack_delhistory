@@ -1,0 +1,15 @@
+#!/bin/bash
+error(){
+   echo ERROR - "$*"
+   exit 1
+}
+export WORKSPACE=~
+trap error ERR
+if [ ! -d "${WORKSPACE}/venv" ]; then
+   virtualenv -p /usr/local/bin/python2.7 "${WORKSPACE}/venv"
+fi
+source "${WORKSPACE}/venv/bin/activate"
+pip install --no-cache-dir requests
+pip install flask
+
+python run.py
